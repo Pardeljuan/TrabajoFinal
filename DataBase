@@ -1,0 +1,37 @@
+  `DniPac` INT(10) NOT NULL,
+  `NomPac` VARCHAR(50) NULL,
+  `DomPac` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`DniPac`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `consultorio`.`historialMedico`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `consultorio`.`historialMedico` (
+  `NumHc` INT NOT NULL,
+  `FecHc` DATETIME NOT NULL,
+  `DniPacHc` INT(10) NOT NULL,
+  `MatMedHc` INT(10) NOT NULL,
+  `DiagHc` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`NumHc`),
+  INDEX `dni_idx` (`DniPacHc` ASC) VISIBLE,
+  INDEX `MatMedHc_idx` (`MatMedHc` ASC) VISIBLE,
+  CONSTRAINT `DniPac`
+    FOREIGN KEY (`DniPacHc`)
+    REFERENCES `consultorio`.`pacientes` (`DniPac`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `MatMedHc`
+    FOREIGN KEY (`MatMedHc`)
+    REFERENCES `consultorio`.`medicos` (`MatMed`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
