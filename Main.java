@@ -33,6 +33,9 @@ public class Main {
                 case 2 :
                     m.consultaTablaMedicos();    //Cuando pulse la opción 1 del menú me llevará a la función consultaTablaEstudiantes
                     break;
+                case 3 :
+                    m.consultaTablaHistorialMedico();    //Cuando pulse la opción 1 del menú me llevará a la función consultaTablaEstudiantes
+                    break;
                     
                 case 0:
                     System.out.println("Vuelve pronto");
@@ -57,6 +60,7 @@ public class Main {
         System.out.println("--------------------------------");
         System.out.println("1.MOSTRAR EL CONTENIDO DE LA TABLA PACIENTES");
         System.out.println("2.MOSTRAR EL CONTENIDO DE LA TABLA MEDICOS");
+        System.out.println("3.MOSTRAR EL CONTENIDO DE LA TABLA HISTORIALMEDICO");
         System.out.println("0. Salir");
         System.out.println("\n Por favor, escoja una opción.");
         System.out.println("--------------------------------");
@@ -148,6 +152,31 @@ public class Main {
                         El nombre de los campos de la tabla entre comillas doble " "
                 */
                 System.out.println(r.getInt("MatMed") + " | " + r.getString("NomMed") + " | " + r.getString("EspMed") + " | " );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//mostrarTablaPropietarios
+        
+        /*MÉTODO PARA REALIZAR UNA CONSULTA A UNA TABLA MYSQL*/
+        private void consultaTablaHistorialMedico() {
+        //Realizamos la consulta sql para mostrar todos los datos de la tabla estudiante
+        ResultSet r = buscar("select NumHc,FecHc,DniPacHc,MatMedHc,DiagHc from historialmedico");
+       
+        try {
+            System.out.println("\n TODOS LOS REGISTROS DE LA TABLA HISTORIAL MEDICO:\n");
+           
+            /*
+            Hacemos un While para recorrer toda la tabla estudiantes
+            y así poder sacar todos los registros de la tabla
+            */
+            while (r.next()) {
+                /*Se muestra los datos que queremos sacar por consola indicandole:
+                        El tipo de dato (int,String...) de cada campo
+                        El nombre de los campos de la tabla entre comillas doble " "
+                */
+                System.out.println(r.getInt("NumHc") + " | " + r.getString("FecHc") + " | " + r.getInt("DniPacHc") + " | " + r.getInt("MatMedHc") + " | " + r.getString("DiagHc") + " | " );
             }
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
